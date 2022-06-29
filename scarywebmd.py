@@ -1,3 +1,4 @@
+# Author: Stephen Wist
 # user inputs string of conditions to search clinvar
 # e.g. "inflamed thyroid"
 # and is given the link to/abstract of all relevant publications
@@ -23,7 +24,9 @@ class argParser:
 
 class searchClinVar:
     # handles requests of and parsing of clinvar html
-    
+    # the class operates functionally, with build_query calling all
+    # subsequenct functions
+
     def __init__(self, query):
         self.ncbi_url = 'https://www.ncbi.nlm.nih.gov'
         self.base_url = 'https://www.ncbi.nlm.nih.gov/clinvar/?term='
@@ -85,8 +88,7 @@ class searchClinVar:
         # add these links/abstracts to self.pubs
         soup = BeautifulSoup(r, 'html.parser')
         citations = soup.find_all('a', {'data-ga-action':'PMID citation'})
-        # get citation pubmed id
-        # it will be used to get abstracts
+        
         for c in citations:
             link = c.contents
             self.pubs.append(link) 
